@@ -8,6 +8,7 @@ First, install [Yeoman](http://yeoman.io) and generator-web using [npm](https://
 ```bash
 npm install -g yo
 cd path/to/generator-web
+git clone https://github.com/jamet-julien/generator-web.git
 npm link
 ```
 
