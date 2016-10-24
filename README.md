@@ -7,7 +7,6 @@ First, install [Yeoman](http://yeoman.io) and generator-web using [npm](https://
 
 ```bash
 npm install -g yo
-npm install -g generator-web
 ```
 
 Then generate your new project:

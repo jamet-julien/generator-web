@@ -3,8 +3,8 @@
 
 # 2016-06-13
 # ALTER TABLE  `publis` CHANGE  `PASSE`  `PASSE` INT NOT NULL DEFAULT  '0';
-# UPDATE  `accor`.`weather_country` SET  `actif` = b '0' WHERE  `weather_country`.`refweather` = 5128638;
-# UPDATE  `accor`.`weather_country` SET  `actif` = b '1' WHERE  `weather_country`.`refweather` = 5128581;
+# UPDATE  `weather_country` SET  `actif` = b '0' WHERE  `weather_country`.`refweather` = 5128638;
+# UPDATE  `weather_country` SET  `actif` = b '1' WHERE  `weather_country`.`refweather` = 5128581;
 
 # 2016-07-06
 # CREATE TABLE IF NOT EXISTS `stats` (
