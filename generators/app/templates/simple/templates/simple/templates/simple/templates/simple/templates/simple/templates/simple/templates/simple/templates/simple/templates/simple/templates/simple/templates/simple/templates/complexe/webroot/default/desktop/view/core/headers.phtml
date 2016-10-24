@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="<?= PATH_ROOT ;?>manifest.json">
+    <link rel="apple-touch-startup-image" href="<?= PATH_ROOT ;?>media/icon/launcher-icon-4x.png">
+    <link rel="icon" sizes="192x192" href="<?= PATH_ROOT ;?>media/icon/launcher-icon-4x.png">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php foreach($a_css as $key => $val) : ?>
+    <link rel="<?php echo $val['rel']; ?>" href="<?php echo $val['href'] ;?><?= (SPACE == "PROD")? '?' . time() : '' ; ?>" />
+<?php endforeach; ?>
+
+</head>
+
+<body class="<?= ( isset( $sCoreClass))? $sCoreClass : '' ;?> <?= $s_device ;?>">
