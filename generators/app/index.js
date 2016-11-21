@@ -40,6 +40,9 @@
                     name : 'html-js-css',
                     value: 'simple'
                 },{
+                    name : 'html-js-css canvas',
+                    value: 'canvas'
+                },{
                     name : 'html-js-postcss',
                     value: 'medium'
                 },{
@@ -68,8 +71,12 @@
         case 'simple':
           this._buildSimple();
           break;
+        case 'canvas':
+          this._buildSimple("canvas");
+          break;
         case 'medium':
-          this._buildMedium();
+          //this._buildMedium();
+            this._buildSimple("medium");
           break;
         case 'complexe':
           this._needMoreInfo();
@@ -136,9 +143,9 @@
      * [function description]
      * @return {[type]} [description]
      */
-    _buildSimple : function(){
-      var sRoot = '/simple';
-      copydir.sync( this.templatePath() + sRoot, this.destinationPath());
+    _buildSimple : function( sFolder){
+      var sRoot = sFolder || "simple";
+      copydir.sync( this.templatePath() + '/' + sRoot, this.destinationPath());
     },
 
     /**
