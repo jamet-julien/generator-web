@@ -1,7 +1,7 @@
 <?php
 
-$a_css['<%= newController %>'] = array("rel" => "stylesheet", "media" => "all", "href" => HTTP_LAYOUT . "{$s_general_display}/dist/<%= newController %>.css");
-$a_js['<%= newController %>']  = array("src" => HTTP_LAYOUT . "{$s_general_display}/dist/<%= newController %>.js");
+$a_css['<%= newController %>'] = array("rel" => "stylesheet", "media" => "all", "href" => HTTP_LAYOUT . "{$s_general_display}/css/<%= newController %>.css");
+$a_js['core']  = array("src" => HTTP_LAYOUT . "{$s_device}/dist/core.js");
 
 if( count( $aQuery)){
 

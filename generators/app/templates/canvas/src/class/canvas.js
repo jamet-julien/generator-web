@@ -51,6 +51,40 @@ class Canvas {
   /**
    *
    */
+  setMode( _sMode){
+
+    /* globalCompositeOperation :
+      normal | multiply | screen | overlay |
+      darken | lighten | color-dodge | color-burn | hard-light |
+      soft-light | difference | exclusion | hue | saturation |
+      color | luminosity
+    */
+    var sMode = _sMode ||'normal';
+    this.context.globalCompositeOperation = sMode;
+  }
+
+  /**
+   *
+   */
+  blur( iBlur){
+
+    this.context.filter = "blur("+iBlur+"px)";
+    return this;
+  }
+
+  /**
+   *
+   */
+  print( _sFormat){
+
+    var sFormat = _sFormat || 'png';
+    return this.canvas.toDataURL( "image/"+sFormat);
+
+  }
+
+  /**
+   *
+   */
   getPixel(){
     let oImageData = this.context.getImageData(0, 0, this.width, this.height);
     return oImageData;

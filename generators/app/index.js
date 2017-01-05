@@ -37,17 +37,20 @@
             message : "Quelle type de structure ?",
             choices : [
                 {
-                    name : 'html-js-css',
+                    name : 'html, js, css',
                     value: 'simple'
                 },{
-                    name : 'html-js-css canvas',
+                    name : 'html, js, css, canvas',
                     value: 'canvas'
                 },{
-                    name : 'html-js-postcss',
+                    name : 'html, js, postcss',
                     value: 'medium'
                 },{
-                    name : 'php',
-                    value: 'complexe'
+                    name : 'php, html, js, postcss',
+                    value: 'complexe_postcss'
+                },{
+                    name : 'php, html, js, css',
+                    value: 'complexe_css'
                 },{
                     name : 'banner',
                     value: 'banner'
@@ -75,11 +78,11 @@
           this._buildSimple("canvas");
           break;
         case 'medium':
-          //this._buildMedium();
             this._buildSimple("medium");
           break;
-        case 'complexe':
-          this._needMoreInfo();
+        case 'complexe_postcss':
+        case 'complexe_css':
+          this._needMoreInfo( this.props.type);
           break;
         case 'banner':
           this._buildBanner();
@@ -94,7 +97,7 @@
      * [function description]
      * @return {[type]} [description]
      */
-    _needMoreInfo : function(){
+    _needMoreInfo : function( sFolder){
 
       var aPrompts, done = this.async(), yo = this;
 
@@ -128,7 +131,7 @@
 
           tableManage.getTableName( function( ){
             //tableManage.getTableRelation( function(){
-                yo._buildComplexe( this.table);
+                yo._buildComplexe( this.table, '/'+sFolder);
             //});
           });
 
@@ -150,26 +153,16 @@
 
     /**
      * [function description]
-     * @return {[type]} [description]
-     */
-    _buildMedium : function(){
-      var sRoot = '/medium';
-      copydir.sync( this.templatePath() + sRoot, this.destinationPath());
-    },
-
-    /**
-     * [function description]
      * @param  {[type]} aTable [description]
      * @return {[type]}        [description]
      */
-    _buildComplexe : function( oTable){
-      var sRoot    = '/complexe',
+    _buildComplexe : function( oTable, sFolder){
+      var sRoot    = sFolder || '/complexe_postcss',
           aTplFile = [
             'vars/mysql.vars.php',
             'vars/global.vars.php'
           ],
           iCountTpl     = aTplFile.length,
-          //iCountTable   = aTable.length,
           oModelDefault = {},
           y             = 0,
           i             = 0;
@@ -188,7 +181,6 @@
       }
 
       // model build
-      //for(; y < iCountTable ; y++){
       for( var sTable in oTable){
         oModelDefault = oTable[ sTable ];
         this.fs.copyTpl(
@@ -216,9 +208,7 @@
 
     install   : function(){
 
-      //if( this.props.type !== 'simple'){
         this.npmInstall();
-      //}
 
     },
 

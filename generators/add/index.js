@@ -27,8 +27,8 @@
         },
       },
       aTplView  = [
-        {tpl : 'theme/device/src/css/style.css', dest : '{DEVICE}/src/css/{CTRL}.css'},
-        {tpl : 'theme/device/src/js/scrypt.js', dest : '{DEVICE}/src/js/{CTRL}.js'},
+        {tpl : 'theme/device/css/style.css', dest : '{DEVICE}/css/{CTRL}.css'},
+//        {tpl : 'theme/device/src/js/scrypt.js', dest : '{DEVICE}/src/js/{CTRL}.js'},
         {tpl : 'theme/device/view/newcontroller/newcontroller.phtml', dest : '{DEVICE}/view/{CTRL}/{CTRL}.phtml'}
       ];
 

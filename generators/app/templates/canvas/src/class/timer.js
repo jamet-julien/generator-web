@@ -11,6 +11,7 @@ var _fCallBack = function( iTime){},
     _iThen     = 0,
     _iInterval = 10,
     _bPlay     = true,
+    _bPause    = false,
     _iBegin    = null,
     _oCounter = null;
 
@@ -86,13 +87,21 @@ class Timer {
         _iBegin = _iThen;
       }
 
-      _fCallBack.call( null, _iThen - _iBegin);
+      if( !_bPause){
+        _fCallBack.call( null, _iThen - _iBegin);
+      }
     }
   }
 
   static play(){
-    _bPlay = true;
+    _bPlay  = true;
+    _bPause = false;
   }
+
+  static pause(){
+    _bPause = true;
+  }
+
 
   static stop(){
     _bPlay = false;
