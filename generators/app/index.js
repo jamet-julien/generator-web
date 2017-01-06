@@ -142,6 +142,27 @@
 
     },
 
+
+    _writeIgnore : function(){
+        var string = `*~
+        .DS_Store
+        .babelrc
+        package.json
+        _tmp/*
+        _stat/*
+        _TODO/*
+        _build/*
+        _TODO.php
+        node_modules/*
+        deployment-config.json
+        yo-config.json`;
+
+        this.fs.writeFile( this.destinationPath('.gitignore'), string, { flag: 'wx' }, function (err) {
+            if (err) throw err;
+        });
+
+    },
+
     /**
      * [function description]
      * @return {[type]} [description]
@@ -197,6 +218,8 @@
         this.destinationPath( 'classes/model/' + this.varTpl.modelParent.toLowerCase() + '.class.php'),
         oModelDefault
       );
+
+      this._writeIgnore();
     },
 
     _buildBanner : function(){
