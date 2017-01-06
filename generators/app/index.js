@@ -7,6 +7,7 @@
       _            = require('lodash'),
       tableManage  = require('./tableManage'),
       fileExists   = require('file-exists'),
+      fs           = require('fs'),
       connection;
 
   module.exports = generators.Base.extend({
@@ -145,19 +146,17 @@
 
     _writeIgnore : function(){
         var string = `*~
-        .DS_Store
-        .babelrc
-        package.json
-        _tmp/*
-        _stat/*
-        _TODO/*
-        _build/*
-        _TODO.php
-        node_modules/*
-        deployment-config.json
-        yo-config.json`;
+.DS_Store
+.babelrc
+package.json
+_tmp/*
+_stat/*
+_build/*
+_TODO.php
+node_modules/*
+yo-config.json`;
 
-        this.fs.writeFile( this.destinationPath('.gitignore'), string, { flag: 'wx' }, function (err) {
+        fs.writeFile( this.destinationPath('.gitignore'), string, { flag: 'wx' }, function (err) {
             if (err) throw err;
         });
 
