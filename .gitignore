@@ -1,9 +1,3 @@
 *~
 .DS_Store
 node_modules/*
-_tmp/*
-_stat/*
-_TODO/*
-_TODO.php
-deployment-config.json
-yo-config.json
