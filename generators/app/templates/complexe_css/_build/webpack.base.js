@@ -14,6 +14,8 @@ module.exports = {
     path       : path.resolve( __dirname , sThemePath + '/dist/'),
     filename   : 'core.js'
   },
+  
+  devtool : 'eval-source-map',
 
   resolve : {
     extensions : ['', '.json', '.js']
