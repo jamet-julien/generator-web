@@ -9,7 +9,8 @@
       fileExists   = require('file-exists'),
       fs           = require('fs'),
       mkdirp       = require('mkdirp'),
-      connection;
+      connection,
+      launchWebpack= false;
 
   module.exports = generators.Base.extend({
 
@@ -76,19 +77,25 @@
         case 'simple':
           this._buildSimple();
           break;
+
         case 'canvas':
           this._buildSimple("canvas");
           break;
+
         case 'medium':
             this._buildSimple("medium");
           break;
+
         case 'complexe_postcss':
         case 'complexe_css':
+          launchWebpack = true;
           this._needMoreInfo( this.props.type);
           break;
+
         case 'banner':
           this._buildBanner();
           break;
+
         default:
           break;
       }
@@ -132,9 +139,7 @@
           tableManage.init( oConnect);
 
           tableManage.getTableName( function( ){
-            //tableManage.getTableRelation( function(){
-                yo._buildComplexe( this.table, '/'+sFolder);
-            //});
+            yo._buildComplexe( this.table, '/'+sFolder);
           });
 
           done();
@@ -170,7 +175,10 @@ yo-config.json`;
      */
     _buildSimple : function( sFolder){
       var sRoot = sFolder || "simple";
-      copydir.sync( this.templatePath() + '/' + sRoot, this.destinationPath());
+      copydir.sync(
+        this.templatePath() + '/' + sRoot,
+        this.destinationPath()
+      );
     },
 
     /**
@@ -205,6 +213,7 @@ yo-config.json`;
       // model build
       for( var sTable in oTable){
         oModelDefault = oTable[ sTable ];
+
         this.fs.copyTpl(
           this.templatePath( '_file/classes/model/sub/template.class.php'),
           this.destinationPath( 'classes/model/sub/' + oModelDefault.fileName + '.class.php'),
@@ -231,12 +240,15 @@ yo-config.json`;
     conflicts : function(){},
 
     install   : function(){
-
         this.npmInstall();
-
     },
 
-    end       : function(){}
+    end       : function(){
+      
+      if( launchWebpack){
+        this.spawnCommand('npm', ['start']);
+      }
+    }
 
   });
 
