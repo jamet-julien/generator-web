@@ -1,8 +1,11 @@
 *~
 .DS_Store
+.babelrc
+package.json
 _tmp/*
 _stat/*
 _TODO/*
+_build/*
 _TODO.php
 node_modules/*
 deployment-config.json
