@@ -8,6 +8,7 @@
       tableManage  = require('./tableManage'),
       fileExists   = require('file-exists'),
       fs           = require('fs'),
+      mkdirp       = require('mkdirp'),
       connection;
 
   module.exports = generators.Base.extend({
@@ -160,6 +161,7 @@ yo-config.json`;
             if (err) throw err;
         });
 
+        mkdirp.sync( this.destinationPath()+'/_tmp');
     },
 
     /**
