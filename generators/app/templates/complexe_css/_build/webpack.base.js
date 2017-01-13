@@ -6,7 +6,7 @@ var sTheme     = 'webroot/default/desktop';
 var sThemePath = '../'+sTheme;
 var sRootDist  = sTheme + '/dist';
 
-module.exports = {
+module.exports = [{
 
   entry :{},
 
@@ -14,7 +14,7 @@ module.exports = {
     path       : path.resolve( __dirname , sThemePath + '/dist/'),
     filename   : 'core.js'
   },
-  
+
   devtool : 'eval-source-map',
 
   resolve : {
@@ -35,4 +35,4 @@ module.exports = {
 
   plugins : []
 
-};
+}];

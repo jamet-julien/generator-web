@@ -4,7 +4,7 @@ var config   = require('./webpack.base');
 
 var sTheme   = '../webroot/default/desktop';
 
-config.entry = {
+config[0].entry = {
 
       home    : [
         'babel-regenerator-runtime',
@@ -13,9 +13,9 @@ config.entry = {
 
 };
 
-config.output.path = path.resolve( __dirname , sTheme + '/dist/');
+config[0].output.path = path.resolve( __dirname , sTheme + '/dist/');
 
-config.plugins = config.plugins.concat([
+config[0].plugins = config[0].plugins.concat([
   new webpack.optimize.UglifyJsPlugin({
     comments : false
   })
