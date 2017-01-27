@@ -3,7 +3,7 @@ require( 'shelljs/global');
 var webpackConfig = require( './webpack.prod'),
     ora           = require( 'ora'),
     webpack       = require( 'webpack'),
-    spinner       = ora('On compile…');
+    spinner       = ora('On compile pour la PROD …');
 
 var sTheme     = 'webroot/default/desktop';
 var sRootDist  = sTheme + '/dist';
@@ -17,6 +17,7 @@ webpack( webpackConfig, function(err, stats) {
   spinner.stop();
 
   if( err) throw err;
+
   process.stdout.write( stats.toString({
       colors       : true,
       modules      : false,

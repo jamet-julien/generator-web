@@ -1,0 +1,54 @@
+.edit::selection {
+    background-color : #333;
+    color            : #fff;
+}
+
+.js-editor_select{
+    position         : relative;
+    background-color : #333;
+    color            : #fff;
+}
+
+    .js-editor_cursor{
+        position : relative;
+    }
+
+        .js-editor_tool{
+            list-style       : none;
+            display          : flex;
+            padding          : 0;
+            position         : absolute;
+            top              : 0;
+            left             : 0;
+            transform-origin : left center;
+            background       : #fff;
+
+
+            box-shadow    : 0 0 12px 0px black;
+            box-sizing    : border-box;
+            padding       : 1px;
+            border-radius : 14px;
+            overflow      : hidden;
+
+            transform        : translate3d(0, 0, 0);
+            opacity          : 0;
+            transition       : all .3s;
+
+            margin           : 0;
+        }
+
+        .js-editor_tool.open{
+            transform   : translate3d( 0, -100%, 0);
+            opacity     : 1;
+
+        }
+            .js-editor_item{
+                display      : inline-block;
+                width        : 25px;
+                height       : 25px;
+                background   : #ccc;
+                border-radius: 50%;
+                padding      : 0;
+                margin-right : 2px;
+                cursor       : pointer;
+            }

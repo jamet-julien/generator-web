@@ -14,8 +14,9 @@ module.exports = [{
     path       : path.resolve( __dirname , sThemePath + '/dist/'),
     filename   : 'core.js'
   },
-
-  devtool : 'eval-source-map',
+  
+  cache  : false,
+  devtool: 'cheap-module-source-map',
 
   resolve : {
     extensions : ['', '.json', '.js']

@@ -39,23 +39,23 @@
             name    : "type",
             message : "Quelle type de structure ?",
             choices : [
-                {
+                /*{
                     name : 'html, js, css',
                     value: 'simple'
-                },{
-                    name : 'html, js, css, canvas',
+                },*/{
+                    name : 'Structure Canvas',
                     value: 'canvas'
                 },{
-                    name : 'html, js, postcss',
+                    name : 'Plugin js',
                     value: 'medium'
-                },{
+                },/*{
                     name : 'php, html, js, postcss',
                     value: 'complexe_postcss'
-                },{
-                    name : 'php, html, js, css',
+                },*/{
+                    name : 'Structure Php',
                     value: 'complexe_css'
                 },{
-                    name : 'banner',
+                    name : 'Structure Banner',
                     value: 'banner'
                 }
           ]
@@ -244,7 +244,7 @@ yo-config.json`;
     },
 
     end       : function(){
-      
+
       if( launchWebpack){
         this.spawnCommand('npm', ['start']);
       }

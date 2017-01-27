@@ -1,38 +1,27 @@
-var gulp       = require('gulp'),
-    postcss    = require('gulp-postcss'),
-    filter     = require('gulp-filter'),
-    rename     = require("gulp-rename"),
-    livereload = require('gulp-livereload');
+const gulp       = require('gulp');
+const livereload = require('gulp-livereload');
+const babel      = require('gulp-babel');
+const watch      = require('gulp-watch');
+const rename     = require('gulp-rename');
+var uglify       = require('gulp-uglify');
+var pump         = require('pump');
 
-var processors = [
-    require('precss'),
-    require("postcss-color-function"),
-    require('rucksack-css')({
-      fallbacks : true
-    }),
-    require('autoprefixer')({ browsers: ['last 5 versions'] }),
-    require("css-mqpacker")()
-];
-
-
-gulp.task( 'default', function(){
-    var oRegex = /\d{2}[a-zA-Z_\-]+\/(?!_)[a-zA-Z_0-9\-]+\.css/;
-
-    gulp.src( './webroot/**/*.css')
-        .pipe( filter( function( file){
-            return oRegex.test( file.path);
-        }))
-        .pipe( rename( function( path) {
-            path.dirname = path.dirname.replace(/(\d{2}-)/, '');
-         }))
-        .pipe( postcss( processors))
-        .pipe( gulp.dest('./webroot/'))
-        .pipe(livereload());
+gulp.task('watch', () => {
+	gulp.watch('src/*.js', ['js']);
+	livereload.listen();
 });
 
-
-
-gulp.task( 'watch', function(){
-    livereload.listen();
-    gulp.watch('./webroot/**/*.css', ['default']);
+gulp.task('js', (cb) => {
+	 pump([
+    		gulp.src('src/*.js'),
+        babel({
+            presets: ['es2015']
+        }),
+				uglify(),
+				rename( {suffix: ".min"}),
+        gulp.dest('js/')
+		], cb
+	);
 });
+
+gulp.task('default', ['js', 'watch']);
