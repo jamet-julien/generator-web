@@ -1,30 +1,10 @@
 <?php
 // system
 session_start();
-ini_set('display_errors', 'on');
+ini_set('display_errors', 0);
 
 // init vars
-$a_js            = array();
-$a_css           = array();
-$a_include_pages = array();
-
-$sQuery          = ( isset($_GET['query']) && trim( $_GET['query']) !== '')?  $_GET['query'] : 'home';
-$aQuery          = explode( '/', $sQuery);
-
-$s_folder        = array_shift( $aQuery);
-
-$a_meta          = array();
-$i_lang          = 1 ;
-$s_lang          = ( isset($_GET['lang']))?  strtolower( $_GET['lang']) : 'fr' ;
-$s_locales       = $s_lang . '_' . strtoupper( $s_lang) ;
-
-$s_general_display ;
-$mysql;
-
-$s_device        = 'none';
-
-// require vars
-$s_theme         = "default";
+require_once __DIR__ . '/controller/_init_var.php' ;
 require_once __DIR__ . '/vars/global.vars.php' ;
 
 // locales

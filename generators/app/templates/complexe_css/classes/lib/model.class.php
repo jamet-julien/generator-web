@@ -132,9 +132,9 @@ class Model{
         // mode preview or not
 		if( isset(  $this->_aOptionPreview['use']) AND count(  $this->_aOptionPreview) == 3){
 
-			$sReturn  = " `{$this->_aOptionPreview['champ']}` ";
+			$sReturn  = " `{$this->_oDAO->real_escape_string( $this->_aOptionPreview['champ'])}` ";
 			$sReturn .= ( !$this->_aOptionPreview['use'])? "!=" : "=";
-			$sReturn .= " '{$this->_aOptionPreview['previewOn']}'";
+			$sReturn .= " '{$this->_oDAO->real_escape_string( $this->_aOptionPreview['previewOn'])}'";
 
 			$aReturn[] = $sReturn;
 
@@ -148,9 +148,9 @@ class Model{
              $this->_aOptionLang['champ'] != ''
           ){
 
-            $sReturn  = " `{$this->_aOptionLang['champ']}` ";
+            $sReturn  = " `{$this->_oDAO->real_escape_string( $this->_aOptionLang['champ'])}` ";
             $sReturn .= "=";
-            $sReturn .= " '{$this->_aOptionLang['value']}'";
+            $sReturn .= " '{$this->_oDAO->real_escape_string( $this->_aOptionLang['value'])}'";
 
             $aReturn[] = $sReturn;
 
@@ -306,7 +306,7 @@ class Model{
 
 		$sReferer       = $this->_sReferer;
 
-        if( count( $this->_aData) > 0){
+        if( count( $aInfo) > 0){
 
             $sId            = $aInfo[$sReferer];
             $sQuery         = "SELECT * FROM {$this->_sTable} WHERE {$sReferer} = '{$sId}' LIMIT 1";

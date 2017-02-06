@@ -1,32 +1,10 @@
 <?php
 // system
 session_start();
-ini_set('display_errors', 'on');
-$_GET = array_map('strip_tags', $_GET) ;
+ini_set('display_errors', 0);
 
 // init vars
-$a_js            = array();
-$a_css           = array();
-$a_include_pages = array();
-
-$sQuery          = ( isset($_GET['query']))?  $_GET['query'] : '';
-$aQuery          = explode('/', $sQuery) + array('home');
-$s_folder        = array_shift( $aQuery);
-
-$i_lang          = 1 ;
-$s_lang          = ( isset($_GET['lang']))?  strtolower( $_GET['lang']) : 'fr' ;
-$s_locales       = $s_lang . '_' . strtoupper( $s_lang) ;
-$aResult         = array(
-													'code'    => 0,
-													'message' => 'error',
-													'data'    => array(),
-												);
-
-$s_Method         = $_SERVER['REQUEST_METHOD'];
-
-
-
-// require vars
+require_once __DIR__ . '/../controller/_init_var.php' ;
 require_once __DIR__ . '/../vars/global.vars.php' ;
 
 // locales
