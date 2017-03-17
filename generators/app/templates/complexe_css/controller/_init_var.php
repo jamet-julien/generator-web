@@ -6,7 +6,7 @@ $a_include_pages = array();
 
 $aGet            = filter_input_array( INPUT_GET, FILTER_SANITIZE_STRING);
 
-$sQuery          = ( isset( $aGet['query']))?  $aGet['query'] : '';
+$sQuery          = ( isset( $aGet['query']) && trim( $aGet['query']) != '')?  $aGet['query'] : 'home';
 $aQuery          = explode( '/', $sQuery) + array('home');
 
 $s_folder        = array_shift( $aQuery);
