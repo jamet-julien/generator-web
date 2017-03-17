@@ -22,7 +22,7 @@
     "compression-webpack-plugin"  : "^0.3.2",
     "shelljs"                     : "^0.7.4",
     "url-loader"                  : "^0.5.7",
-    "webpack"                     : "^1.13.1"
-
+    "webpack"                     : "^1.13.1",
+    "sw-precache-webpack-plugin"  : "^0.9.1"
   }
 }

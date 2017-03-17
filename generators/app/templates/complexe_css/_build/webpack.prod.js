@@ -2,6 +2,7 @@ var path              = require('path');
 var webpack           = require('webpack');
 var config            = require('./webpack.base');
 var CompressionPlugin = require("compression-webpack-plugin");
+var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 var sTheme   = '../webroot/default/desktop';
 
@@ -39,7 +40,36 @@ config[0].plugins = config[0].plugins.concat(
      test: /\.js$|\.css$|\.html$/,
      threshold: 10240,
      minRatio: 0
-   })
+   }),
+   new SWPrecacheWebpackPlugin(
+     {
+       cacheId       : require('../package.json').name,
+       filename      : '../../../../sw.js',
+
+       forceDelete   : true,
+
+       maximumFileSizeToCacheInBytes: 4194304,
+       minify: true,
+       staticFileGlobsIgnorePatterns: [
+         /[.]\.map$/
+       ],
+
+       runtimeCaching: [{
+         handler: 'cacheFirst',
+         urlPattern: /[.](jpg|png|gif)$/,
+       },{
+         handler: 'networkFirst',
+         urlPattern: /[.]css$/,
+       }],
+
+       staticFileGlobs: [
+          'webroot/**/*.css',
+          'webroot/**/**/dist/**/*.js',
+          'webroot/media/**/*.*',
+        ],
+
+     }
+   )
   ]
 );
 

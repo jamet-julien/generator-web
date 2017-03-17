@@ -1,6 +1,7 @@
 var path    = require('path');
 var root    = path.resolve( __dirname);
 var webpack = require('webpack');
+var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 var production = process.argv.indexOf("--prod") > -1
 
@@ -44,7 +45,34 @@ module.exports = {
     plugins : production ? [
       new webpack.optimize.UglifyJsPlugin({
         comments : false
-      })
+      }),
+      new SWPrecacheWebpackPlugin(
+        {
+          cacheId       : require('./package.json').name,
+          filename      : '../sw.js',
+
+          forceDelete   : true,
+
+          maximumFileSizeToCacheInBytes: 4194304,
+          minify: true,
+          staticFileGlobsIgnorePatterns: [/\.map$/],
+
+          runtimeCaching: [{
+            handler: 'cacheFirst',
+            urlPattern: /[.](jpg|png|gif)$/,
+          },{
+            handler: 'networkFirst',
+            urlPattern: /[.]css$/,
+          }],
+
+          staticFileGlobs: [
+             'js/lib/**.js',
+             'style/img/**.*',
+             'style/**.css',
+           ],
+
+        }
+      )
     ]:[]
 
 };
