@@ -10,7 +10,16 @@
       fs           = require('fs'),
       mkdirp       = require('mkdirp'),
       connection,
-      launchWebpack= false;
+      launchWebpack = false,
+      launchInstall = true,
+
+      aTplView  = [
+        {tpl : '_api/controller/template/_add.php', dest : '_api/controller/{CTRL}/_add.php'},
+        {tpl : '_api/controller/template/_update.php', dest : '_api/controller/{CTRL}/_update.php'},
+        {tpl : '_api/controller/template/_read.php', dest : '_api/controller/{CTRL}/_read.php'},
+        {tpl : '_api/controller/template/_delete.php', dest : '_api/controller/{CTRL}/_delete.php'},
+        {tpl : '_api/controller/template/template.php', dest : '_api/controller/{CTRL}/{CTRL}.php'},
+      ];
 
   module.exports = generators.Base.extend({
 
@@ -55,6 +64,9 @@
                     name : 'Structure Php',
                     value: 'complexe_css'
                 },{
+                    name : 'Structure API',
+                    value: 'full_api'
+                },{
                     name : 'Structure Banner',
                     value: 'banner'
                 }
@@ -89,6 +101,12 @@
         case 'complexe_postcss':
         case 'complexe_css':
           launchWebpack = true;
+          this._needMoreInfo( this.props.type);
+          break;
+
+        case 'full_api':
+          launchWebpack = false;
+          launchInstall = false;
           this._needMoreInfo( this.props.type);
           break;
 
@@ -139,7 +157,14 @@
           tableManage.init( oConnect);
 
           tableManage.getTableName( function( ){
-            yo._buildComplexe( this.table, '/'+sFolder);
+            if( sFolder == 'full_api'){
+              yo._buildComplexeAPI( this.table, '/'+sFolder);
+
+            }else{
+              yo._buildComplexe( this.table, '/'+sFolder);
+              mkdirp.sync( this.destinationPath()+'/_tmp');
+
+            }
           });
 
           done();
@@ -153,20 +178,13 @@
     _writeIgnore : function(){
         var string = `*~
 .DS_Store
-.babelrc
-package.json
 _tmp/*
-_stat/*
-_build/*
-_TODO.php
-node_modules/*
+node_modules
 yo-config.json`;
 
         fs.writeFile( this.destinationPath('.gitignore'), string, { flag: 'wx' }, function (err) {
             if (err) throw err;
         });
-
-        mkdirp.sync( this.destinationPath()+'/_tmp');
     },
 
     /**
@@ -179,6 +197,87 @@ yo-config.json`;
         this.templatePath() + '/' + sRoot,
         this.destinationPath()
       );
+    },
+
+    /**
+     * [function description]
+     * @param  {[type]} aTable [description]
+     * @return {[type]}        [description]
+     */
+    _buildComplexeAPI : function( oTable, sFolder){
+      var sRoot    = sFolder,
+          aTplFile = [
+            'vars/mysql.vars.php',
+            'vars/global.vars.php'
+          ],
+          iCountTpl     = aTplFile.length,
+          oModelDefault = {},
+          y             = 0,
+          i             = 0;
+
+
+
+      // copy all
+      copydir.sync( this.templatePath() + sRoot, this.destinationPath());
+
+
+      //template update
+      for( ; i < iCountTpl ; i++){
+        this.fs.copyTpl(
+          this.templatePath( '_file/_api/' + aTplFile[ i ]),
+          this.destinationPath( '_api/'+aTplFile[ i ]),
+          this.varTpl
+        );
+      }
+
+      // model build
+      for( var sTable in oTable){
+        oModelDefault = oTable[ sTable ];
+
+        this.fs.copyTpl(
+          this.templatePath( '_file/_api/classes/model/sub/template.class.php'),
+          this.destinationPath( '_api/classes/model/sub/' + oModelDefault.fileName + '.class.php'),
+          oModelDefault
+        );
+
+        this._buildView( oModelDefault, oModelDefault.fileName );
+
+      }
+
+      //parent model build
+      this.fs.copyTpl(
+        this.templatePath( '_file/_api/classes/model/template.class.php'),
+        this.destinationPath( '_api/classes/model/' + this.varTpl.modelParent.toLowerCase() + '.class.php'),
+        oModelDefault
+      );
+
+      this._writeIgnore();
+    },
+
+    /**
+     * [_buildView description]
+     * @param  {[type]} oModelDefault [description]
+     * @param  {[type]} sController   [description]
+     * @return {[type]}               [description]
+     */
+    _buildView : function( oModelDefault, sController){
+      var i        = 0,
+          regCo    = new RegExp("{CTRL}","g"),
+          sDest    = '',
+          oTplFile = {},
+          iCount   = aTplView.length;
+
+      for(; i < iCount ; i++ ){
+
+        oTplFile = aTplView[ i ];
+        sDest    = oTplFile.dest;
+
+        this.fs.copyTpl(
+          this.templatePath( '_file/' + oTplFile.tpl ),
+          this.destinationPath( sDest.replace( regCo, sController) ),
+          oModelDefault
+        );
+      }
     },
 
     /**
@@ -240,7 +339,11 @@ yo-config.json`;
     conflicts : function(){},
 
     install   : function(){
+
+      if(launchInstall == true){
+        console.log('npm install');
         this.npmInstall();
+      }
     },
 
     end       : function(){

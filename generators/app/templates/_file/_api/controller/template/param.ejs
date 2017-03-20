@@ -1,0 +1,18 @@
+
+$aDefault = array(
+<% data.forEach(function( field){ -%>
+        "<%= field.value %>" => "",
+ <% }); -%>
+    );
+
+$aMandatory = array(
+<% data.forEach(function( field){ -%>
+        "<%= field.value %>" => true,
+ <% }); -%>
+    );
+
+$aMandatory = array(
+<% data.forEach(function( field){ -%>
+        "<%= field.value %>" => _FILTER_STRING,
+ <% }); -%>
+    );

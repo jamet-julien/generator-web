@@ -34,6 +34,7 @@
       oModelSave             = {};
       oModelSave.modelRef    = 'id';
       oModelSave.data        = [];
+      oModelSave.field       = [];
       oModelSave.child       = [];
       oModelSave.parent      = [];
       oModelSave.modelParent = sModelParent;
@@ -49,6 +50,7 @@
           oModelSave             = {};
           oModelSave.modelRef    = 'id';
           oModelSave.data        = [];
+          oModelSave.field       = [];
           oModelSave.modelParent = sModelParent;
           oModelSave.child       = [];
           oModelSave.parent      = [];
@@ -67,6 +69,7 @@
 
         oModelSave.fileName    = _.camelCase( aResult[ i ].name).toLowerCase();
         oModelSave.data.push({value : aResult[ i ].field});
+        oModelSave.field.push(aResult[ i ].field);
 
       }
   }

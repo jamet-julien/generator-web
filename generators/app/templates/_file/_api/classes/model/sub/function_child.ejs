@@ -1,0 +1,12 @@
+
+<% child.forEach(function( model){ -%>
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
+    function <%= model.childmodel %>(){
+        $oModel = new <%= model.classChild %>();
+        return $oModel->all(" `<%= model.field %>` = '{$this-><%= model.reference %>}' ");
+    }
+
+ <% }); -%>
