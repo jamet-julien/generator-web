@@ -33,6 +33,7 @@
 
       oModelSave             = {};
       oModelSave.modelRef    = 'id';
+      oModelSave.bUseId      = false;
       oModelSave.data        = [];
       oModelSave.field       = [];
       oModelSave.child       = [];
@@ -49,6 +50,7 @@
           sTmpName               = aResult[ i ].name;
           oModelSave             = {};
           oModelSave.modelRef    = 'id';
+          oModelSave.bUseId      = false;
           oModelSave.data        = [];
           oModelSave.field       = [];
           oModelSave.modelParent = sModelParent;
@@ -64,7 +66,7 @@
         }
 
         if( aResult[ i ].field == 'id'){
-          bUseId = true;
+          oModelSave.bUseId = true;
         }
 
         oModelSave.fileName    = _.camelCase( aResult[ i ].name).toLowerCase();

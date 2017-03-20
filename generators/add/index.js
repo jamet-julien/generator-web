@@ -30,7 +30,14 @@
         {tpl : 'theme/device/css/style.css', dest : '{DEVICE}/css/{CTRL}.css'},
 //        {tpl : 'theme/device/src/js/scrypt.js', dest : '{DEVICE}/src/js/{CTRL}.js'},
         {tpl : 'theme/device/view/newcontroller/newcontroller.phtml', dest : '{DEVICE}/view/{CTRL}/{CTRL}.phtml'}
-      ];
+      ],
+      aTplViewAPI  = [
+        {tpl : '_api/controller/template/_add.php', dest : '_api/controller/{CTRL}/_add.php'},
+        {tpl : '_api/controller/template/_update.php', dest : '_api/controller/{CTRL}/_update.php'},
+        {tpl : '_api/controller/template/_read.php', dest : '_api/controller/{CTRL}/_read.php'},
+        {tpl : '_api/controller/template/_delete.php', dest : '_api/controller/{CTRL}/_delete.php'},
+        {tpl : '_api/controller/template/template.php', dest : '_api/controller/{CTRL}/{CTRL}.php'},
+      ];;
 
   module.exports = generators.Base.extend({
 
@@ -64,6 +71,9 @@
                 name : 'un model',
                 value: 'model'
             },{
+                name : 'un model API',
+                value: 'API'
+            },{
                 name : 'une langue',
                 value: 'local'
             }
@@ -91,6 +101,13 @@
         case 'model':
           tableManage.getCheckTable( function(){
             self._promptModel( this.table);
+          });
+
+          break;
+
+        case 'API':
+          tableManage.getCheckTable( function(){
+            self._promptModelAPI( this.table);
           });
 
           break;
@@ -148,6 +165,29 @@
 
     },
 
+    _promptModelAPI : function( aTable){
+
+      var aPrompts, done = this.async(), yo = this ;
+
+        aPrompts = [{
+          type    : 'checkbox',
+          name    : 'table',
+          message : 'le model :',
+          choices : aTable
+        }];
+
+        tableManage.init();
+
+        return this.prompt(aPrompts).then( function (oResponse) {
+          var sCond = " TABLE_NAME IN ('" + oResponse.table.join("','")+"') ";
+          tableManage.getTableName( function( ){
+            yo._buildModelAPI( this.table);
+          }, sCond);
+          done();
+        }.bind(this));
+
+    },
+
     _buildLocale : function( sLang){
       var yo = this;
       mkdirp( this.destinationPath('locales/' + sLang), function (err) {
@@ -172,6 +212,54 @@
         this.fs.copyTpl(
           this.templatePath( '_file/classes/model/sub/template.class.php'),
           this.destinationPath( 'classes/model/sub/' + oModelDefault.fileName + '.class.php'),
+          oModelDefault
+        );
+      }
+    },
+
+    _buildModelAPI : function( oTable){
+      var sRoot         = '/complexe',
+         // iCountTable   = aTable.length,
+          oModelDefault = {},
+          y             = 0;
+
+      // model build
+//      for(; y < iCountTable ; y++){
+      for( var sTable in oTable){
+
+        oModelDefault = oTable[ sTable ];
+        this.fs.copyTpl(
+          this.templatePath( '_file/_api/classes/model/sub/template.class.php'),
+          this.destinationPath( '_api/classes/model/sub/' + oModelDefault.fileName + '.class.php'),
+          oModelDefault
+        );
+
+        this._buildViewAPI( oModelDefault, oModelDefault.fileName );
+
+      }
+    },
+
+    /**
+     * [_buildView description]
+     * @param  {[type]} oModelDefault [description]
+     * @param  {[type]} sController   [description]
+     * @return {[type]}               [description]
+     */
+    _buildViewAPI : function( oModelDefault, sController){
+      var i        = 0,
+          regCo    = new RegExp("{CTRL}","g"),
+          sDest    = '',
+          oTplFile = {},
+          iCount   = aTplViewAPI.length;
+
+      for(; i < iCount ; i++ ){
+
+        oTplFile = aTplViewAPI[ i ];
+        sDest    = oTplFile.dest;
+
+        this.fs.copyTpl(
+          this.templatePath( '_file/' + oTplFile.tpl ),
+          this.destinationPath( sDest.replace( regCo, sController) ),
           oModelDefault
         );
       }

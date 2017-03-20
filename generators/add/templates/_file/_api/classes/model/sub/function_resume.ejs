@@ -1,0 +1,11 @@
+    /**
+     * [resume description]
+     * @return [type] [description]
+     */
+    function resume(){
+      return array_map( "trim", array(
+      <% data.forEach(function( field){ -%>
+              "<%= field.value %>" => $this-><%= field.value %>,
+       <% }); -%>
+      ));
+    }
