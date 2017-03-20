@@ -1,7 +1,7 @@
 <?php
 // system
 session_start();
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 
 // init vars
 require_once __DIR__ . '/controller/_init_var.php' ;
@@ -38,7 +38,8 @@ switch( $s_folder){
 
 }
 
-header('Content-Type: application/json');
-	echo json_encode( (object) $a_Result);
+Header::setStatus( $i_codeHeader);
+Header::setContentType('json');
+Header::exec();
+echo json_encode( (object) $a_Result);
 exit();
-?>

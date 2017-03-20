@@ -1,3 +1,4 @@
+RewriteRule ^([_a-z0-9_\-\/]*)\.json$ _api/api.php?query=$1&display=$2 [QSA,NC,L]
 #--------------------------------------------------
 # SYSTEM
 #--------------------------------------------------
@@ -16,7 +17,6 @@ php_value output_handler ob_gzhandler
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 
-	RewriteRule ^([a-z]{2})\/([_a-z0-9_\-\/]*)\.(json|xml|csv)$ _api/api.php?lang=$1&query=$2&display=$3 [QSA,NC,L]
-	RewriteRule ^([_a-z0-9_\-\/]*)\.(json|xml|csv)$ _api/api.php?query=$1&display=$2 [QSA,NC,L]
+	RewriteRule ^([_a-z0-9_\-\/]*)\.json$ _api/api.php?query=$1&display=$2 [QSA,NC,L]
 
 </IfModule>
