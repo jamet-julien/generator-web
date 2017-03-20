@@ -14,9 +14,9 @@ if( count( $aPost)){
     $a_Result['data']    = $oParent->resume;
 
   }else{
-    $aResult['message'] = 'Instance doesn\'t exist';
+    $a_Result['message'] = 'Instance doesn\'t exist';
   }
 
 }else{
-  $aResult['message'] = 'error data needed';
+  $a_Result['message'] = 'error data needed';
 }

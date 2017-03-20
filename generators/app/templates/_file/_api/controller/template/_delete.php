@@ -2,6 +2,7 @@
 
 parse_str( file_get_contents( 'php://input'), $aDelete);
 $sClass  = '<%= modelName %>';
+$oParent = new <%= modelName %>();
 
 /***********************************************
  __     ___    ____

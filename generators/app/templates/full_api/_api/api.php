@@ -28,7 +28,11 @@ $_file =  implode( '/', $a_file );
 switch( $s_folder){
 
 	default :
-		if( is_file( $_file)) require_once( $_file);
+		if( is_file( $_file)){
+			require_once( $_file);
+		}else{
+			$a_Result['message'] = 'no method';
+		}
 		unset($_file);
 	break;
 

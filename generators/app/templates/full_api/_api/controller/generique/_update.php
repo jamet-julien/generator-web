@@ -22,9 +22,9 @@ if( count( $a_Query)){
 
 
   }else{
-    $aResult['message'] = 'Instance doesn\'t exist';
+    $a_Result['message'] = 'Instance doesn\'t exist';
   }
 
 }else{
-  $aResult['message'] = 'error identifiant needed';
+  $a_Result['message'] = 'error identifiant needed';
 }

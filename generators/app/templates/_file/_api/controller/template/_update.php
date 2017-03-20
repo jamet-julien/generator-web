@@ -1,7 +1,8 @@
 <?php
-
-parse_str( file_get_contents( 'php://input') ,$aPut);
+parse_str( file_get_contents( 'php://input') ,$aPUT);
+$bValid  = true;
 $sClass  = '<%= modelName %>';
+$oParent = new <%= modelName %>();
 
 /***********************************************
  __     ___    ____
@@ -28,6 +29,21 @@ $sClass  = '<%= modelName %>';
   $sSerial  = array_shift( $a_Query);
   $oModel   = new $sClass( $sSerial);
 
+  <% if( ~field.indexOf('email') ){ -%>
+  // verification des EMAIL
+  $aMail   = $oParent->all( "email = '{$aTreat['data']['email']}'");
+
+  $sDomain = trim( strstr( $aTreat['data']['email'], '@'), '@');
+  getmxrr( $sDomain, $aHost);
+
+  if( count( $aMail) || (SPACE == "PROD" && !count( $aHost))){
+    $sName                 = 'email';
+    $bValid                = false;
+    $aMandatory[ $sName ]  = false;
+    $aError[]              = $sName;
+  }
+  <% } -%>
+
 /***********************************************
   _   _ ____  ____    _  _____ _____
  | | | |  _ \|  _ \  / \|_   _| ____|
@@ -35,26 +51,32 @@ $sClass  = '<%= modelName %>';
  | |_| |  __/| |_| / ___ \| | | |___
   \___/|_|   |____/_/   \_\_| |_____|
 ***********************************************/
+  if(  $bValid){
 
-  if( $oModel->isExist){
+      if($oModel->isExist){
 
-    foreach ($aTreat['data'] as $sKey => $sValue) {
-      if( !in_array( $sKey, $aTreat['error'])){
-        $oModel->$sKey = $sValue;
+        foreach ($aTreat['data'] as $sKey => $sValue) {
+          if( !in_array( $sKey, $aTreat['error'])){
+            $oModel->$sKey = $sValue;
+          }
+        }
+
+
+        $oModel->save();
+        $a_Result['code']    = 1;
+        $a_Result['message'] = 'succes';
+        $a_Result['data']    = $oModel->resume;
+
+
+      }else{
+        $a_Result['message'] = 'Instance doesn\'t exist';
       }
-    }
-
-
-    $oModel->save();
-    $a_Result['code']    = 1;
-    $a_Result['message'] = 'succes';
-    $a_Result['data']    = $oModel->resume;
-
-
   }else{
-    $aResult['message'] = 'Instance doesn\'t exist';
+    $a_Result['message'] = 'error data';
+    $a_Result['error']   = $aError;
   }
 
+
 }else{
-  $aResult['message'] = 'error identifiant needed';
+  $a_Result['message'] = 'error identifiant needed';
 }

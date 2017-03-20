@@ -11,8 +11,8 @@ $aMandatory = array(
  <% }); -%>
     );
 
-$aMandatory = array(
+$aFilter = array(
 <% data.forEach(function( field){ -%>
-        "<%= field.value %>" => _FILTER_STRING,
+        "<%= field.value %>" => <%= field.value == 'email' ? 'FILTER_VALIDATE_EMAIL' : '_FILTER_STRING' %>,
  <% }); -%>
     );

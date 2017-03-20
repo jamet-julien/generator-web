@@ -3,6 +3,7 @@
 $bValid  = true;
 $aPost   = filter_input_array( INPUT_POST);
 $sClass  = '<%= modelName %>';
+$oParent = new <%= modelName %>();
 
 /***********************************************
  __     ___    ____
@@ -30,13 +31,12 @@ if( count( $aPost)){
 
   <% if( ~field.indexOf('email') ){ -%>
   // verification des EMAIL
-  $oParent = new <%= modelName %>();
   $aMail   = $oParent->all( "email = '{$aTreat['data']['email']}'");
 
   $sDomain = trim( strstr( $aTreat['data']['email'], '@'), '@');
   getmxrr( $sDomain, $aHost);
 
-  if( count( $aInscritMail) || !count( $aHost)){
+  if( count( $aMail) || (SPACE == "PROD" && !count( $aHost))){
     $sName                 = 'email';
     $bValid                = false;
     $aMandatory[ $sName ]  = false;
@@ -50,9 +50,9 @@ if( count( $aPost)){
   // Mandatory OK ?
   foreach( $aMandatory as $sName => $bValue){
        if( in_array( $sName, $aTreat['error']) && !in_array( $sName, $aError)){
-               $bValid             = false;
+               $bValid               = false;
                $aMandatory[ $sName ] = false;
-               $aError[]           = $sName;
+               $aError[]             = $sName;
        }
   }
 
@@ -75,16 +75,16 @@ if( count( $aPost)){
       $a_Result['data']    = $oModel->resume;
 
     }else{
-      $aResult['message'] = 'Instance doesn\'t exist';
+      $a_Result['message'] = 'Instance doesn\'t exist';
     }
 
   }else{
 
-    $aResult['message'] = 'error data';
-    $aResult['error']   = $aError;
+    $a_Result['message'] = 'error data';
+    $a_Result['error']   = $aError;
 
   }
 
 }else{
-  $aResult['message'] = 'error data needed';
+  $a_Result['message'] = 'error data needed';
 }

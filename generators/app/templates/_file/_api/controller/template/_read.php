@@ -1,6 +1,7 @@
 <?php
 
 $sClass  = '<%= modelName %>';
+$oParent = new <%= modelName %>();
 
 /***********************************************
   _____ ___ _   _____ _____ ____
@@ -26,12 +27,11 @@ if( count( $a_Query)){
   if( $oModel->isExist){
     $a_Result['data']   = $oModel->resume;
   }else{
-    $aResult['message'] = 'Instance doesn\'t exist';
+    $a_Result['message'] = 'Instance doesn\'t exist';
   }
 
 }else{
 
-  $oParent = new $sClass();
   $aData   = $oParent->all();
 
   foreach ($aData as $oModel) {
