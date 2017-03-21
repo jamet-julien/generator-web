@@ -6,8 +6,8 @@ $a_include_pages = array();
 
 $a_Get           = filter_input_array( INPUT_GET, FILTER_SANITIZE_STRING);
 
-$s_Query         = ( isset( $a_Get['query']) && trim( $a_Get['query']) != '')?  $a_Get['query'] : 'generique';
-$a_Query         = explode( '/', $s_Query) + array('generique');
+$s_Query         = ( isset( $a_Get['query']) && trim( $a_Get['query']) != '')?  $a_Get['query'] : '_generique';
+$a_Query         = explode( '/', $s_Query) + array('_generique');
 
 $s_folder        = array_shift( $a_Query);
 
