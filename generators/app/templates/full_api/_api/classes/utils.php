@@ -54,6 +54,22 @@ function generateRandomString( $ilen = 10) {
   return $sResult;
 }
 
+/**
+ * [remove_accents description]
+ * @param  [type]  $str     [description]
+ * @param  string  $charset [description]
+ * @return {[type]          [description]
+ */
+function remove_accents( $str, $charset='utf-8')
+{
+    $str = htmlentities($str, ENT_NOQUOTES, $charset);
+
+    $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+    $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
+    $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
+
+    return $str;
+}
 
 /**
  * [toSlug description]
@@ -61,8 +77,23 @@ function generateRandomString( $ilen = 10) {
  * @param  [type] $sSeparator [description]
  * @return [type]             [description]
  */
-function toSlug( $sString, $sSeparator=""){
-    return strtolower(trim(preg_replace('/[^A-Za-z0-9_\.]+/', $sSeparator, $sString)));
+function toSlug( $sString){
+
+    $aReplace =
+     [
+        '/\s+/'          => "-",
+        '/[^a-z0-9-]/i'  => '',
+        '/\-{2,}/'       => '-',
+        '/^-+|-+$/'      => '',
+     ];
+
+    return strtolower(
+                      preg_replace(
+                        array_keys( $aReplace),
+                        array_values( $aReplace),
+                        remove_accents( $sString)
+                      )
+                    );
 }
 
 /**

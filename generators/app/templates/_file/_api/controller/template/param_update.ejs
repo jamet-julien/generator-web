@@ -1,0 +1,6 @@
+
+$aFilter = array(
+<% data.forEach(function( field){ -%>
+        "<%= field.value %>" => <%= field.value == 'email' ? 'FILTER_VALIDATE_EMAIL' : '_FILTER_STRING' %>,
+ <% }); -%>
+    );
