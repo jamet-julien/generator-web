@@ -1,3 +1,8 @@
+$aDefault = array(
+<% data.forEach(function( field){ -%>
+        "<%= field.value %>",
+ <% }); -%>
+    );
 
 $aFilter = array(
 <% data.forEach(function( field){ -%>

@@ -55,14 +55,19 @@ $oParent = new <%= modelName %>();
 
       if($oModel->isExist){
 
-        foreach ($aTreat['data'] as $sKey => $sValue) {
-          if( !in_array( $sKey, $aTreat['error'])){
+        $bUpdated = false;
+
+        foreach ( $aTreat['data'] as $sKey => $sValue) {
+          if( !in_array( $sKey, $aTreat['error']) && in_array( $sKey, $aDefault)){
+            $bUpdated  = true;
             $oModel->$sKey = $sValue;
           }
         }
 
-
-        $oModel->save();
+        if( $bUpdated){
+          $oModel->save();
+        }
+        
         $a_Result['code']    = 1;
         $a_Result['message'] = 'succes';
         $a_Result['data']    = $oModel->resume;
