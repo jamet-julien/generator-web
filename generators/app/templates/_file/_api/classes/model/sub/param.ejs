@@ -1,8 +1,12 @@
 /*
+
+//BULK
+<% data.forEach(function( field){ -%><%= field.value %> : 
+<% });-%>
+
 //DATA
 array(
-<% data.forEach(function( field){ -%> 
-        "<%= field.value %>" => "",
- <% }); -%>
-    );
+<% data.forEach(function( field){ -%>"<%= field.value %>" => "",
+<% }); -%>
+);
 */

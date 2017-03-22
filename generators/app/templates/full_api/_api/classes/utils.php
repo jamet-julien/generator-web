@@ -6,7 +6,7 @@ $aFolderClass = array( 'lib/', 'model/sub/', 'model/', '' );
 //filtre de traitement text
 define( '_FILTER_STRING' , array(
     'filter' => FILTER_SANITIZE_STRING,
-    'flags'  => FILTER_FLAG_STRIP_HIGH
+    'flags'  => FILTER_FLAG_NO_ENCODE_QUOTES
 ));
 /**
  * [__autoload description]

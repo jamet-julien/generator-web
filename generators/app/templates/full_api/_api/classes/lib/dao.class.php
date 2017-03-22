@@ -14,6 +14,8 @@ class DAO{
 		if($this->feed->connect_errno) {
     	echo "Echec lors de la connexion à MySQL : (" . $this->feed->connect_errno . ") " . $this->feed->connect_error;
 		}
+		$this->feed->set_charset("utf8");
+
 	}
 
 	/**

@@ -66,7 +66,7 @@ if( count( $aPost)){
 
   if( $bValid){
 
-    $oModel  = new $sClass( $aPost);
+    $oModel  = new $sClass( $aTreat['data']);
 
     if( trim( $oModel->id) != '0'){
 
@@ -75,7 +75,7 @@ if( count( $aPost)){
       $a_Result['data']    = $oModel->resume;
 
     }else{
-      $a_Result['message'] = 'Instance doesn\'t exist';
+      $a_Result['message'] = 'Instance doesn\'t create';
     }
 
   }else{
