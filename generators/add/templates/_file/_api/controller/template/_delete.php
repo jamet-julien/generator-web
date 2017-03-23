@@ -3,6 +3,8 @@
 parse_str( file_get_contents( 'php://input'), $aDelete);
 $sClass  = '<%= modelName %>';
 $oParent = new <%= modelName %>();
+$aError  = [];
+
 
 /***********************************************
  __     ___    ____
@@ -44,7 +46,7 @@ $oParent = new <%= modelName %>();
 
     $oModel->delete();
     $a_Result['code']    = 1;
-    $a_Result['message'] = 'succes';
+    $a_Result['message'] = 'success';
 
   }else{
     $a_Result['message'] = 'Instance doesn\'t exist';

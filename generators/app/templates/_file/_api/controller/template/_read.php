@@ -2,6 +2,8 @@
 
 $sClass  = '<%= modelName %>';
 $oParent = new <%= modelName %>();
+$aError  = [];
+
 
 /***********************************************
   _____ ___ _   _____ _____ ____
@@ -39,6 +41,6 @@ if( count( $a_Query)){
   }
 
   $a_Result['code']    = 1;
-  $a_Result['message'] = 'succes';
+  $a_Result['message'] = 'success';
 
 }

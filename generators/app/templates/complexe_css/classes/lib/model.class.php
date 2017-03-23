@@ -729,7 +729,7 @@ class Model{
     	$sQuery       	= "SELECT COUNT(*) FROM {$this->_sTable} WHERE {$sOption}";
     	$iCountResult   = $this->_oDAO->single_result( $sQuery);
 
-    	return $iCountResult;
+			return ( count( $iCountResult))? $iCountResult[0] : 0;
 
 	}
 

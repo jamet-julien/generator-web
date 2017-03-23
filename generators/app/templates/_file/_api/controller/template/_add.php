@@ -4,6 +4,8 @@ $bValid  = true;
 $aPost   = filter_input_array( INPUT_POST);
 $sClass  = '<%= modelName %>';
 $oParent = new <%= modelName %>();
+$aError  = [];
+
 
 /***********************************************
  __     ___    ____

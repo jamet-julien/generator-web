@@ -3,6 +3,8 @@ parse_str( file_get_contents( 'php://input') ,$aPUT);
 $bValid  = true;
 $sClass  = '<%= modelName %>';
 $oParent = new <%= modelName %>();
+$aError  = [];
+
 
 /***********************************************
  __     ___    ____
@@ -67,9 +69,9 @@ $oParent = new <%= modelName %>();
         if( $bUpdated){
           $oModel->save();
         }
-        
+
         $a_Result['code']    = 1;
-        $a_Result['message'] = 'succes';
+        $a_Result['message'] = 'success';
         $a_Result['data']    = $oModel->resume;
 
 
