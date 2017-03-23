@@ -48,10 +48,10 @@
             name    : "type",
             message : "Quelle type de structure ?",
             choices : [
-                /*{
+                {
                     name : 'html, js, css',
                     value: 'simple'
-                },*/{
+                },{
                     name : 'Structure Canvas',
                     value: 'canvas'
                 },{
