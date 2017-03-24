@@ -8,7 +8,7 @@ if( count( $a_Query)){
   $oModel   = new $sClass( $sSerial);
 
   if( $oModel->isExist){
-    $a_Result['code']   = 0;
+    $a_Result['code']   = 1;
     $a_Result['message']= 'success';
     $a_Result['data']   = $oModel->resume;
   }else{
@@ -25,6 +25,6 @@ if( count( $a_Query)){
   }
 
   $a_Result['code']    = 1;
-  $a_Result['message'] = 'succes';
+  $a_Result['message'] = 'success';
 
 }
