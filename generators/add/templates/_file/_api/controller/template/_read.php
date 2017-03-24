@@ -27,7 +27,9 @@ if( count( $a_Query)){
  |_| \_\_____/_/   \_\____/
 ***********************************************/
   if( $oModel->isExist){
-    $a_Result['data']   = $oModel->resume;
+    $a_Result['code']   = 0;
+    $a_Result['message']= 'success';
+    $a_Result['data']   = $oModel->resume();
   }else{
     $a_Result['message'] = 'Instance doesn\'t exist';
   }

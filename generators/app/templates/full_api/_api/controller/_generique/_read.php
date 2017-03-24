@@ -8,6 +8,8 @@ if( count( $a_Query)){
   $oModel   = new $sClass( $sSerial);
 
   if( $oModel->isExist){
+    $a_Result['code']   = 0;
+    $a_Result['message']= 'success';
     $a_Result['data']   = $oModel->resume;
   }else{
     $aResult['message'] = 'Instance doesn\'t exist';
