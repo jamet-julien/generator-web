@@ -32,10 +32,68 @@ function __autoload( $sClassName){
     	echo json_encode( (object) array(
               													'code'    => 0,
               													'message' => 'Method doesn\'t exist',
-              													'data'    => array(),
+                                        'error'   => array('can\'t load'),
               												));
     exit();
 
+}
+
+
+
+
+/**
+ * [isConnected description]
+ * @return boolean [description]
+ */
+
+function isConnected(){
+  if(
+    isset($_SESSION['token']) && trim( $_SESSION['token']) != '' &&
+    isset($_SERVER['HTTP_TOKEN']) && trim( $_SERVER['HTTP_TOKEN']) != '' &&
+    $_SESSION['token'] == $_SERVER['HTTP_TOKEN']
+  ){
+    return true;
+  }
+
+  header('Content-Type: application/json');
+    echo json_encode( (object) array(
+                                      'code'    => 0,
+                                      'message' => 'Need connection',
+                                      'error'   => array('need_connection'),
+                                    ));
+  exit();
+
+}
+
+
+/**
+ * [base64ToImg description]
+ * @param  [type]  $base64_string [description]
+ * @param  [type]  $output_file   [description]
+ * @return {[type]                [description]
+ */
+function base64ToImg( $base64String, $outputFile) {
+    $sFilename = '';
+   $splited = explode(',', substr( $base64String , 5) , 2);
+   $mime    = $splited[0];
+   $data    = $splited[1];
+
+   $mimeSplitWithoutBase64 = explode( ';', $mime,2);
+   $mimeSplit              = explode( '/', $mimeSplitWithoutBase64[0],2);
+
+   if( count( $mimeSplit) == 2){
+
+      $extension = $mimeSplit[1];
+      if($extension=='jpeg') $extension = 'jpg';
+
+      $sFilename =$outputFile.'.'.$extension;
+  }
+
+  if( $sFilename != ''){
+    file_put_contents( SERVER_TMP . $sFilename, base64_decode( $data) );
+  }
+
+  return $sFilename;
 }
 
 /**
