@@ -23,7 +23,7 @@ var W             = window.innerWidth,
       draw  : fnDraw
     },
 
-    ;
+    datGUI;
 
 
 /*********************************************************
