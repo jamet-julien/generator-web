@@ -1,7 +1,7 @@
 
-import Canvas          from './class/canvas.js';
-import Phase           from './class/phase.js';
-import Timer           from './class/timer.js';
+import Canvas          from './class/canvas/canvas.js';
+import Phase           from './class/tool/phase.js';
+import Timer           from './class/tool/timer.js';
 
 
 /*********************************************************
@@ -21,7 +21,9 @@ var W             = window.innerWidth,
     oPhase = {
       setup : fnSetup,
       draw  : fnDraw
-    };
+    },
+
+    ;
 
 
 /*********************************************************
@@ -101,3 +103,15 @@ document.addEventListener("DOMContentLoaded", ( event) => {
 if ( 'serviceWorker' in navigator ) {
   navigator.serviceWorker.register('sw.js');
 }
+
+/******************************
+  ____  _____ ____  _   _  ____
+ |  _ \| ____| __ )| | | |/ ___|
+ | | | |  _| |  _ \| | | | |  _
+ | |_| | |___| |_) | |_| | |_| |
+ |____/|_____|____/ \___/ \____|
+ ******************************/
+ window.datGUI = datGUI;
+ window.onload = function() {
+   datGUI = new dat.GUI();
+ };
