@@ -1,8 +1,8 @@
-import {indexToXY,map} from './utility.js';
-import Vector          from '../class/vector.js';
-import Geometry        from '../class/geometry.js';
+import {indexToXY,map} from '../../lib/utility.js';
+import Vector          from '../class/canvas/vector.js';
+import Geometry        from '../class/canvas/geometry.js';
 
-class Cellule {
+class Particule {
 
   /**
    *
@@ -46,4 +46,4 @@ class Cellule {
 
 }
 
-export default Cellule;
+export default Particule;
