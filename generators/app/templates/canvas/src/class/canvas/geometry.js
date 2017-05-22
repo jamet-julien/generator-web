@@ -9,9 +9,6 @@ class Geometry{
     this.begin   = false;
   }
 
-
-
-
   /**
    *
    */
@@ -35,6 +32,15 @@ class Geometry{
    */
   set font( sString){
     this.context.font = sString;
+  }
+
+  /**
+   * [font description]
+   * @param  {[type]} sString [description]
+   * @return {[type]}         [description]
+   */
+  set textAlign( sString){
+    this.context.textAlign = sString;
   }
 
   /**
@@ -128,6 +134,21 @@ class Geometry{
     return this;
   }
 
+  /**
+  *
+  * */
+  pie( iSizePart, iX, iY, iSize){
+
+    var arcsector = Math.PI * ( 2 * iSizePart / 100);
+    var offset    = Math.PI/2;
+
+    this.beginPath();
+    this.context.arc( iX, iY, iSize,  -offset,  arcsector - offset, false);
+    this.context.lineTo( iX, iY);
+
+    return this;
+  }
+
 
   polygon( aPoint){
     var i       = 1,
@@ -149,15 +170,20 @@ class Geometry{
   /**
    *
    */
-  line( iX, iY, iX2, iY2, icolor){
+  line( iX, iY, iX2, iY2, icolor, size = 1, cap = "round"){
 
-    this.beginPath()
-        .moveTo( iX, iY)
-        .lineTo( iX2, iY2);
+    //this.beginPath();
+     this.context.beginPath();
 
-    this.closePath();
+     this.context.moveTo( iX, iY);
+     this.context.lineTo( iX2, iY2);
+     this.context.lineWidth   = size;
+     this.context.lineCap     = cap;
+     this.context.strokeStyle = icolor;
+     this.context.stroke();
 
-    this.stroke( icolor, 1);
+    //this.closePath();
+    //this.stroke( icolor, size);
 
     return this;
 
