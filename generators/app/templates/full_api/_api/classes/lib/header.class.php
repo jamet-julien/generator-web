@@ -273,6 +273,16 @@ class Header
     }
 
     /**
+     * [setCacheControl description]
+     * @param string $sCacheControl [description]
+     */
+    public static function setAccessControlAllowOrigin( $sDomainControl = '*')
+    {
+        self::_add('Access-Control-Allow-Origin', $sDomainControl);
+
+    }
+
+    /**
      * [execute description]
      * @return [type] [description]
      */
