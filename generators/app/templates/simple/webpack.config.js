@@ -8,7 +8,7 @@ var production = process.argv.indexOf("--prod") > -1
 module.exports = {
 
     entry :{
-      app : ['babel-regenerator-runtime','./src/index.js']
+      app : [ "babel-polyfill", 'babel-regenerator-runtime','./src/index.js']
     },
 
     output : {
