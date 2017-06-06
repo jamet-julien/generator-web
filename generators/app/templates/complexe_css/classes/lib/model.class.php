@@ -231,7 +231,7 @@ class Model{
                 $sOperateur = '=';
 
                 $sNewValue = $this->_oDAO->real_escape_string( $value);
-								$sNewValue = ( is_numeric( $sNewValue))? "$sNewValue" : "'$sNewValue'";
+								$sNewValue = ( is_numeric( $sNewValue) || $sNewValue == "NULL")? "$sNewValue" : "'$sNewValue'";
                 $aStr[]    = "`{$key}` $sOperateur $sNewValue";
             }
 
