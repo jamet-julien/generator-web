@@ -193,7 +193,7 @@ function treatPost( $aInfo, $aFilter){
   $aInfoVerif  = filter_var_array( $aInfo, $aFilter, false);
   $aInfoResult = array_merge( $aInfo, $aInfoVerif);
   return array(
-    'error' => array_keys( array_filter( $aInfo, "isEmpty")),
+    'error' => array_keys( array_filter( $aInfoResult, "isEmpty")),
     'data'  => $aInfoResult,
   );
 }

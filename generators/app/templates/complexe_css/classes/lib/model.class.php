@@ -2,7 +2,7 @@
 
 
 //[ Ajout : 2015-06-30 09:23:11 ( julien Jamet ) ]
-class Model{
+class Model implements JsonSerializable{
 
 	private $_sOperateur          = '<>!=';
 
@@ -786,6 +786,23 @@ class Model{
         }
         return $oDatas;
     }
+
+		/**
+		 * [jsonSerialize description]
+		 * @return [type] [description]
+		 */
+
+		public function jsonSerialize(){
+			return $this->resume();
+		}
+
+		/**
+		 * [resume description]
+		 * @return [type] [description]
+		 */
+		public function resume(){
+			return (Object)[];
+		}
 
     /**
      * [allFile description]
