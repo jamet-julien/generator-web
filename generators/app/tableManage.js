@@ -216,7 +216,7 @@
       _oVarConnect  = {
             host     : 'localhost',
             user     : 'root',
-            password : 'root',
+            password : '',
             port     : '8889',
             database : 'socialwall'
       },
