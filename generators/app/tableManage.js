@@ -182,7 +182,7 @@
           type    : 'input',
           name    : 'password',
           message : 'password',
-          default : 'root' // Default to current folder name
+          default : '' // Default to current folder name
       },
       {
           type    : 'input',
